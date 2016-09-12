@@ -23,8 +23,8 @@ module Inprovise::Fork
     end
 
     def verify_targets(*names)
-      if names.any? { |name| context.node.name == name || Inprovise::Infrastructure.find(name).includes?(context.node.name) }
-        raise ArgumentError, "Not allowed to fork for same node as running context : #{context.node.name}"
+      if names.any? { |name| @context.node.name == name || Inprovise::Infrastructure.find(name).includes?(@context.node.name) }
+        raise ArgumentError, "Not allowed to fork for same node as running context : #{@context.node.name}"
       end
     end
     private :verify_targets
@@ -44,19 +44,19 @@ module Inprovise::Fork
     private :run_command
 
     def apply(script, *args)
-      run_command(:apply, script, config, *args)
+      run_command(:apply, script, *args)
     end
 
-    def revert
-      run_command(:revert, script, config, *args)
+    def revert(script, *args)
+      run_command(:revert, script, *args)
     end
 
-    def validate
-      run_command(:validate, script, config, *args)
+    def validate(script, *args)
+      run_command(:validate, script, *args)
     end
 
-    def trigger
-      run_command(:trigger, script, config, *args)
+    def trigger(script, *args)
+      run_command(:trigger, script, *args)
     end
 
   end
