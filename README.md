@@ -67,7 +67,7 @@ fork.apply('script', 'node1').trigger('action', 'node1')
 Example
 -------
 
-By combining the Inprovise-VBox(https://github.com/mcorino/Inprovise-VBox) plugin and the Inprovise-Fork(https://github.com/mcorino/Inprovise-Fork) plugin
+By combining the [Inprovise-VBox](https://github.com/mcorino/Inprovise-VBox) plugin and the [Inprovise-Fork](https://github.com/mcorino/Inprovise-Fork) plugin
 provisioning scripts could add a virtual machine on a host server, register an Inprovise node and provision that new node with a single
 `rig` command using a scheme like this:
 
@@ -109,7 +109,8 @@ vbox 'myVM' do
     end
     
     revert do
-      # in real life you may not want to do this to be able to reinstate the VM faster with all setup already in place   
+      # in real life you may not want to do this to be able to reinstate 
+      # the VM faster with all setup already in place   
       fork(:sync).revert('vmSetup', 'MyVM')
     end
 end
