@@ -29,19 +29,27 @@ module Inprovise::Fork
     end
     private :verify_targets
 
-    def run_command(cmd, script, *args)
+    def run_command(cmd, script_or_action, *args)
       config = Hash === args.last ? args.pop : {}
       verify_targets(*args)
       if @async
-        Inprovise::Controller.run_provisioning_command(cmd, script, config, *args)
+        Inprovise::Controller.run_provisioning_command(cmd, script_or_action, config, *args)
       else
         ctrl = Inprovise::Controller.new
-        ctrl.run_provisioning_command(cmd, script, config, *args)
+        ctrl.run_provisioning_command(cmd, script_or_action, config, *args)
         ctrl.wait
       end
       self
     end
     private :run_command
+
+    def config
+      @context.config
+    end
+
+    def method_missing(meth, *args)
+      @context.config.send(meth, *args)
+    end
 
     def apply(script, *args)
       run_command(:apply, script, *args)
@@ -55,8 +63,8 @@ module Inprovise::Fork
       run_command(:validate, script, *args)
     end
 
-    def trigger(script, *args)
-      run_command(:trigger, script, *args)
+    def trigger(action, *args)
+      run_command(:trigger, action, *args)
     end
 
   end

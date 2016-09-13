@@ -1,0 +1,28 @@
+before_install:
+- gem install bundler
+bundler_args: "--verbose"
+script: rake test
+rvm:
+- 2.0.0
+- 2.1
+- 2.2
+- 2.3.1
+- ruby-head
+gemfile:
+- Gemfile
+matrix:
+  allow_failures:
+  - rvm: ruby-head
+env: CODECLIMATE_REPO_TOKEN=3733be865016cababd969f8888810daf54fa824d10b126a2fec6123e8a21e2f5
+  bundle exec rake
+addons:
+  code_climate:
+    repo_token: 3733be865016cababd969f8888810daf54fa824d10b126a2fec6123e8a21e2f5
+deploy:
+  provider: rubygems
+  api_key:
+    secure: D5SoMPmQSldvkeIss31y35V2zDyIyRkFEaneWrDYgj1t9M/OM31g0Bb5tdZZZK7dgMJUF+h0q1LUHq6Dzs85ZtOswwlft+tvZKShKUeRGYe7nAyQ96Iqjdb2fQN8TyLOrH/d8g/AELonXXTR9vEr+OWdInj6LprHq6mq4/DwbhIhls0EQS+kpPug9oWQGV7uvZu6uMNT6JbkR3ovzxuOh81EnqSP6WPRcq2CohKhMJTcMYm2Y9lhd9jg9eey4CKYsfATOTbElFSo2KnZMiqAe2jCSJMqzt8psVZAgU/XhRT4EfFoR+NsdV2czsanjNP2Q7DD8iqGApfCOFWGu0ys1ok2peo45+GMSw6+Tpaw7aqmBd/pOQw7AmKmgxTvog+KenHEZN0HLlGAw7PpHkXECTzRbYa3RwRKuSHwhqvg9EYSzc2i+IqQgDWg47tvAk1pAjCcfswix9RP30D3lJdCnWIplDs0RkGVKaQsVALfj6153Tv48Zi8WoZmgWyXM/HIQhCFlBQGx3wYTs/XDiD7A+DTQ/2Q7Pabm/ISEIFwZEdJPGWEVJ2/tU0giTgHT9P9Qw3EGh6oj3pxYN532oM79g4tBubGPIOD3tbWh897Clq1cEjtA+PIet8qnVnzB3572qINXsblEADb/oNHSJbrmYleT0XPYRPNXGWy7tgoRYs=
+  gemspec: inprovise-fork.gemspec
+  on:
+    tags: true
+    repo: mcorino/Inprovise-Fork
