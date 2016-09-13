@@ -62,7 +62,7 @@ describe Inprovise::Fork do
       it 'executes a forked script' do
         @script2 = Inprovise::DSL.script('anotherScript') { apply { config[:myMockup].do_something('test') } }
         @script.apply { fork.apply('anotherScript', 'myNode2', {:myMockup => config[:myMockup]}) }
-        @mockObj = Object.new
+        @mockObj = mock
         @mockObj.expects(:do_something).with('test')
         @runner.execute(:apply, {:myMockup => @mockObj})
       end
@@ -111,7 +111,7 @@ describe Inprovise::Fork do
       it 'executes a forked script' do
         @script2 = Inprovise::DSL.script('anotherScript') { apply { config[:myMockup].do_something('test') } }
         @script.apply { fork { apply('anotherScript', 'myNode2', {:myMockup => config[:myMockup]}) } }
-        @mockObj = Object.new
+        @mockObj = mock
         @mockObj.expects(:do_something).with('test')
         @runner.execute(:apply, {:myMockup => @mockObj})
       end
@@ -128,7 +128,7 @@ describe Inprovise::Fork do
       it 'does not allow fork for active node' do
         @script2 = Inprovise::DSL.script('anotherScript') { apply { config[:myMockup].do_something('test') } }
         @script.apply { fork.apply('anotherScript', 'myNode', {:myMockup => config[:myMockup]}) }
-        @mockObj = Object.new
+        @mockObj = mock
         assert_raises ArgumentError do
           @runner.execute(:apply, {:myMockup => @mockObj})
         end
