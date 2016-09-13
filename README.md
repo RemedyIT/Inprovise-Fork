@@ -1,6 +1,6 @@
 
-Inprovise File dependency
-=========================
+Inprovise Fork
+==============
 
 This project implements an extension for the Inprovise provisioning tool providing a `fork` method to the execution contexts
 of Inprovise scripts allowing scripts to fork off provisioning commands (`apply`, `revert`, `validate` or `trigger`) for
