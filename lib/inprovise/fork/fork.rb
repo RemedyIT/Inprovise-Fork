@@ -23,7 +23,9 @@ module Inprovise::Fork
     end
 
     def verify_targets(*names)
-      if names.any? { |name| @context.node.name == name || Inprovise::Infrastructure.find(name).includes?(@context.node.name) }
+      tgts = names.collect { |name| Inprovise::Infrastructure.find(name) }.compact
+      raise ArgumentError, "Missing target node(s) for forked provisioning" if tgts.empty?
+      if tgts.any? { |tgt| @context.node.name == tgt.name || tgt.includes?(@context.node.name) }
         raise ArgumentError, "Not allowed to fork for same node as running context : #{@context.node.name}"
       end
     end
