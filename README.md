@@ -7,8 +7,8 @@ of Inprovise scripts allowing scripts to fork off provisioning commands (`apply`
 other nodes.
 
 [![Build Status](https://travis-ci.org/mcorino/Inprovise-Fork.png)](https://travis-ci.org/mcorino/Inprovise-Fork)
-[![Code Climate](https://codeclimate.com/github/mcorino/Inprovise-Fork/badges/gpa.png)](https://codeclimate.com/github/mcorino/Inprovise-Fork)
-[![Test Coverage](https://codeclimate.com/github/mcorino/Inprovise-Fork/badges/coverage.png)](https://codeclimate.com/github/mcorino/Inprovise-Fork/coverage)
+[![Code Climate](https://codeclimate.com/github/RemedyIT/Inprovise-Fork/badges/gpa.png)](https://codeclimate.com/github/RemedyIT/Inprovise-Fork)
+[![Test Coverage](https://codeclimate.com/github/RemedyIT/Inprovise-Fork/badges/coverage.png)](https://codeclimate.com/github/RemedyIT/Inprovise-Fork/coverage)
 [![Gem Version](https://badge.fury.io/rb/inprovise-fork.png)](https://badge.fury.io/rb/inprovise-fork)
 
 Installation
@@ -39,12 +39,12 @@ or
 
 ````ruby
 fork(mode = :sync) do
-  apply('script', 'name'[, 'name'[, ...]][, config={}])  
+  apply('script', 'name'[, 'name'[, ...]][, config={}])
 end
 fork(mode = :sync) do
   revert('script', 'name'[, 'name'[, ...]][, config={}])
 end
-fork(mode = :sync) do 
+fork(mode = :sync) do
   validate('script', 'name'[, 'name'[, ...]][, config={}])
 end
 fork(mode = :sync) do
@@ -53,16 +53,16 @@ end
 ````
 
 The `mode` argument can be `:sync` (default) or `:async`. With the first the provisioning methods will not return
-until the provisioning process they kicked off has finished. With the latter the provisioning methods kick off the 
-provisioning process in parallel and return immediately. 
+until the provisioning process they kicked off has finished. With the latter the provisioning methods kick off the
+provisioning process in parallel and return immediately.
 
-The provisioning methods return a reference to the forking execution context allowing provisioning methods to be 
+The provisioning methods return a reference to the forking execution context allowing provisioning methods to be
 chained like:
 
 ````ruby
 fork.apply('script', 'node1').trigger('action', 'node1')
 
-```` 
+````
 
 Example
 -------
@@ -88,11 +88,11 @@ script 'vmSetup' do
   apply do
     trigger 'gem:install', 'rails'
   end
-  
+
   revert do
     trigger 'gem:uninstall', 'rails'
   end
-  
+
 end
 
 
@@ -101,20 +101,20 @@ vbox 'myVM' do
       :name => 'MyVM',
       :image => '/remote/image/path/MyVM.qcow2',
       :memory => 1024,
-      :cpus => 2  
+      :cpus => 2
     })
 
     apply do
       fork(:async).apply('vmSetup', 'MyVM')
     end
-    
+
     revert do
-      # in real life you may not want to do this to be able to reinstate 
-      # the VM faster with all setup already in place   
+      # in real life you may not want to do this to be able to reinstate
+      # the VM faster with all setup already in place
       fork(:sync).revert('vmSetup', 'MyVM')
     end
 end
 
 end
 
-```` 
+````

@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["mcorino@remedy.nl"]
   gem.description   = %q{Fork extension for Inprovise scripts}
   gem.summary       = %q{Simple, easy and intuitive virtual machine provisioning}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/RemedyIT/Inprovise-File"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
